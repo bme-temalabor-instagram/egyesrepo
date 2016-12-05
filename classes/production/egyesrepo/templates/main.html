@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"/>
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="/css/style.css"/>
+
+    <title>TemalabInsta</title>
+</head>
+<body>
+<div class="container">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/main}">
+                    <img alt="Brand" class="" src="images\icon.png"/>
+                </a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a th:href="@{/myimages}">
+                        <h3 th:text="${userName}"></h3>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/myimages}">
+                        <img th:attr="src=${userImage}" width="50" />
+                    </a>
+                </li>
+            </ul>
+        </div><!-- /.container-fluid -->
+    </nav>
+
+
+    <div class="row">
+        <form action="#" th:action="@{/userimages}" method="get">
+            <div class="col-lg-5">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="material-icons">search</i></button>
+                    </span>
+                    <input type="text" class="form-control" name="username" placeholder="Search for users..."/>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-5 -->
+        </form>
+        <form action="#" th:action="@{/tagresultimages}" method="get">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="imagetag" placeholder="Search for titles..."/>
+                    <span class="input-group-btn">
+        <button class="btn btn-default" type="submit"><i class="material-icons">search</i></button>
+      </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </form>
+    </div><!-- /.row -->
+
+    <!-- upload-row -->
+    <div class="row no-gutter">
+        <form action="#" th:action="@{/upload}" method="post" enctype="multipart/form-data">
+            <div class="col-md-2">
+                <label class="btn btn-default btn-file input-group-btn">
+                    <i class="material-icons">folder_open</i>
+                    <input id="fileupload" class="" name="image" type="file" accept="image/*" style="display: none"
+                           required="true" />
+                </label>
+            </div>
+            <div class="col-md-5">
+                <input name="title" class="form-control" placeholder="Name..." type="text" required="true"/>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default" type="submit" value="Submit">
+                    <i class="material-icons">cloud_upload</i>
+                </button>
+            </div>
+            <div class="col-md-3" id="uploadFileName"></div>
+        </form>
+    </div>
+    <!-- /upload-row -->
+
+    <div class="row">
+        <div class=" col-xs-12 col-sm-6 col-md-4" th:each="image : ${images}">
+            <article class="photo-article">
+                <header>
+                    <h5 th:text="${image.photo.user.name}"></h5>
+                </header>
+                <div class="img-rounded" th:utext="${image.url}"></div>
+                <div th:text="${image.photo.title}"></div>
+                <bottom>
+                    <p align="center">
+                        <input type="image" src="images\notlike.png" class="notlike" onclick="toggle(this);" />
+                    </p>
+
+
+                    <a href="likes.html"> Number of likes </a>
+                </bottom>
+            </article>
+        </div>
+    </div>
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
