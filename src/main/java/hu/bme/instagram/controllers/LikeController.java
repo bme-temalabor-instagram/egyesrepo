@@ -37,4 +37,42 @@ public class LikeController {
 
         return "peace";
     }
+
+    @PostMapping(value = "/like")
+    public @ResponseBody String like(@RequestParam(value = "photo_id", required = true) String photoId,
+                       HttpServletRequest request) {
+        System.out.println("Like POST request received.");
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null)
+            return "";
+
+        Photo photo = photoRepository.findOne(photoId);
+        if (photo == null)
+            return "";
+
+        photo.getLike().addOne(user);
+        photo = photoRepository.save(photo);
+
+        return "main";
+    }
+
+    @PostMapping(value = "/unlike")
+    public @ResponseBody String unlike(@RequestParam(value = "photo_id", required = true) String photoId,
+                         HttpServletRequest request) {
+        System.out.println("Unlike POST request received.");
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null)
+            return "";
+
+        Photo photo = photoRepository.findOne(photoId);
+        if (photo == null)
+            return "";
+
+        photo.getLike().remove(user);
+        photo = photoRepository.save(photo);
+
+        return "main";
+    }
 }

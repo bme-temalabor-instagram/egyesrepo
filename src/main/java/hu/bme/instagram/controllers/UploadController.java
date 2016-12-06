@@ -81,7 +81,7 @@ public class UploadController {
 
         Photo photo = getPhotoInstance(uploadResult);
         System.out.println("Saving image to db. Image ID is: " + photo.getPublic_id());
-        photoRepository.save(photo);
+        photo = photoRepository.save(photo);
 
         redirectAttributes.addFlashAttribute("photo", cloudinary.url()
                 .imageTag(photo.getPublic_id()));
@@ -97,7 +97,7 @@ public class UploadController {
         String[] allowedImageFormats = new String[]{"jpg", "png", "bmp"};
 
         return ObjectUtils.asMap(
-                "public_id", "temp/" + new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date()) + "-" + title,
+                "public_id", "temp/" + new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss").format(new Date()) + "-" + title,
                 "transformation", transformation,
                 "allowed_formats", allowedImageFormats
         );

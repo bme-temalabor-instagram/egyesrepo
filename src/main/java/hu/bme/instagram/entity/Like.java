@@ -11,7 +11,7 @@ public class Like {
 
     private int likeCount = 0;
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> likes;
+    private List<User> likes;
 
     public Like() {
         likeCount = 0;
@@ -26,15 +26,21 @@ public class Like {
         this.likeCount = likeCount;
     }
 
-    public List<String> getLikes() {
+    public List<User> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<String> likes) {
+    public void setLikes(List<User> likes) {
         this.likes = likes;
     }
 
-    public void addOne() {
+    public void addOne(User user) {
+        likes.add(user);
         likeCount += 1;
+    }
+
+    public void remove(User user) {
+        likes.remove(user);
+        likeCount -= 1;
     }
 }

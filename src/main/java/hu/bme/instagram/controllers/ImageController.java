@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import hu.bme.instagram.entity.Photo;
 import hu.bme.instagram.entity.User;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static hu.bme.instagram.Utilities.Constants.cloudinary;

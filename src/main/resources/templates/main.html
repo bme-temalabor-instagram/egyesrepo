@@ -100,7 +100,8 @@
                                src="images\notlike.png"
                                class="notlike"
                                onclick="toggle(this);"
-                               th:attr="id=${image.photo.like.likeCount == 0} ? '' : ${image.photo.public_id}" onload="actualizeData(this)"/>
+                               th:attr="id=${image.photo.like.likeCount == 0} ? ('-' + ${image.photo.public_id}) : ${image.photo.public_id}"
+                               onload="actualizeData(this)"/>
                     </p>
 
 

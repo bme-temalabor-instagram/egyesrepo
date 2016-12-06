@@ -48,8 +48,8 @@ public class SigninController {
         User user = getUserWithUpdatedInfos(idToken);
         System.out.println("User created, user ID is: " + user.getUserId());
         user = saveUserInDB(user);
-        System.out.println("Adding user to session memory");
         request.getSession().setAttribute("user", user);
+        System.out.println("User added to session memory.");
 
         return "main";
     }
