@@ -9,7 +9,9 @@ function onSignIn(googleUser) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(params);
     xhr.onreadystatechange = function () {
-        window.location.href = "main.html";
+        if (xhr.readyState === 4) {
+            window.location.href = "main";
+        }
     }
 
 }

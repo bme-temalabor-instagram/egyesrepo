@@ -27,13 +27,13 @@ public class Photo {
     @NotNull
     private User user;
 
+    private Like like;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "likeCount", column = @Column(name = "likecount")),
             @AttributeOverride(name = "likes", column = @Column(name = "likes"))
     })
-
-    private Like like;
 
     public Like getLike() {
         return like;

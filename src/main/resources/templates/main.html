@@ -96,21 +96,30 @@
                 <div th:text="${image.photo.title}"></div>
                 <bottom>
                     <p align="center">
-                        <input type="image" src="images\notlike.png" class="notlike" onclick="toggle(this);" />
+                        <input type="image"
+                               src="images\notlike.png"
+                               class="notlike"
+                               onclick="toggle(this);"
+                               th:attr="id=${image.photo.public_id}" onload="actualizeData(this)"/>
                     </p>
 
 
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                        <h5 th:text="${image.photo.like.likeCount}"></h5>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                            th:attr="data-target=${'#' + image.photo.public_id}">
+                        <h5 th:text="${image.photo.like.likeCount + ' people liked this'}"></h5>
                     </button>
                     <!-- Button trigger modal -->
 
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade" th:id="${image.photo.public_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">
+                                        &times;
+                                        </span>
+                                    </button>
                                     <h4 class="modal-title" id="myModalLabel">People who liked it</h4>
                                 </div>
                                 <div class="modal-body">
