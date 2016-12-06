@@ -28,7 +28,6 @@ function actualizeData(el) {
     xhr.responseType="text";
     xhr.send(params);
     xhr.onreadystatechange = function () {
-        //todo itt kell nezni hogy lajkoltunk-e
         if (xhr.readyState === 4) {
             var response = xhr.responseText;
             console.log(response);
