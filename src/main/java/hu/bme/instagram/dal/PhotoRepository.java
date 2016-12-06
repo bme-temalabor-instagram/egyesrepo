@@ -14,4 +14,5 @@ public interface PhotoRepository  extends JpaRepository<Photo, String> {
     List<Photo> findByUserNameContains(String username);
     List<Photo> findByTitleContains(String title);
     List<Photo> searchForTitle(String tag);
+
 }

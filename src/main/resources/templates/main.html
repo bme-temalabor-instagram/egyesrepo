@@ -100,18 +100,18 @@
                                src="images\notlike.png"
                                class="notlike"
                                onclick="toggle(this);"
-                               th:attr="id=${image.photo.public_id}" onload="actualizeData(this)"/>
+                               th:attr="id=${image.photo.like.likeCount == 0} ? '' : ${image.photo.public_id}" onload="actualizeData(this)"/>
                     </p>
 
 
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-                            th:attr="data-target=${'#' + image.photo.public_id}">
+                            data-target="#myModal">
                         <h5 th:text="${image.photo.like.likeCount + ' people liked this'}"></h5>
                     </button>
                     <!-- Button trigger modal -->
 
                     <!-- Modal -->
-                    <div class="modal fade" th:id="${image.photo.public_id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -131,9 +131,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </bottom>
 
             </article>

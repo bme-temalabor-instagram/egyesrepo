@@ -15,6 +15,11 @@ function toggle(el){
 
 function actualizeData(el) {
     var photo_id = el.id;
+    if (photo_id == "") {
+        console.log("0 likes");
+        return;
+    }
+
     var params = "&photo_id=" + photo_id;
     var xhr = new XMLHttpRequest();
 
