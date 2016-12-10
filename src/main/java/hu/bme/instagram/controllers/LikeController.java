@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,8 +35,16 @@ public class LikeController {
             return "";
 
         Like like = photo.getLike();
+        List<User> likers = like.getLikes();
+        String usernames = "";
+        for (int i = 0; i < likers.size(); i++) {
+            usernames += likers.get(i).getName();
+            if (i != likers.size() - 1) {
+                usernames += ", ";
+            }
+        }
 
-        return "peace";
+        return usernames;
     }
 
     @PostMapping(value = "/like")

@@ -15,10 +15,10 @@ function toggle(el) {
 
 function actualizeData(el) {
     var photo_id = el.id;
-    if (photo_id.charAt(0) == '-') {
-        console.log("0 likes");
-        return;
-    }
+    // if (photo_id.charAt(0) == '-') {
+    //     console.log("0 likes");
+    //     return;
+    // }
 
     loadLikes(photo_id);
 }
