@@ -68,8 +68,6 @@ public class LikeController {
 
         LikeEntity like = photo.getLikeEntity();
         like.addOne(user);
-        System.out.println("back to image controller");
-        System.out.println(like.getUserLikes().size());
         like = likeRepository.save(like);
         photo.setLikeEntity(like);
         photo = photoRepository.save(photo);

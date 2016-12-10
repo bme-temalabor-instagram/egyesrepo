@@ -36,9 +36,7 @@ public class LikeEntity {
     }
 
     public void addOne(User user) {
-        System.out.println("addOne");
         userLikes.add(user);
-        System.out.println(userLikes.size());
         likeCount += 1;
     }
 

@@ -2,7 +2,6 @@ package hu.bme.instagram.controllers;
 
 
 import com.cloudinary.Transformation;
-import com.cloudinary.utils.ObjectUtils;
 import hu.bme.instagram.dal.PhotoRepository;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

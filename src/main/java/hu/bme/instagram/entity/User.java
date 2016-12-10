@@ -16,8 +16,6 @@ public class User {
     private String googlePictureUrl;
     @OneToMany(mappedBy = "user")
     private Set<Photo> photos;
-    @ManyToMany(mappedBy = "userLikes")
-    private List<LikeEntity> likeEntities;
 
     public String getGooglePictureUrl() {
         return googlePictureUrl;
@@ -51,11 +49,19 @@ public class User {
         this.userId = userId;
     }
 
-    public List<LikeEntity> getLikeEntities() {
-        return likeEntities;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        return userId.equals(user.userId);
+
     }
 
-    public void setLikeEntities(List<LikeEntity> likeEntities) {
-        this.likeEntities = likeEntities;
+    @Override
+    public int hashCode() {
+        return userId.hashCode();
     }
 }
