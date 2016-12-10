@@ -47,7 +47,9 @@ public class LikeController {
                 usernames += ", ";
             }
         }
-
+        if (likers.size() == 0) {
+            System.out.println("no likers");
+        }
         return usernames;
     }
 
@@ -66,6 +68,8 @@ public class LikeController {
 
         LikeEntity like = photo.getLikeEntity();
         like.addOne(user);
+        System.out.println("back to image controller");
+        System.out.println(like.getUserLikes().size());
         like = likeRepository.save(like);
         photo.setLikeEntity(like);
         photo = photoRepository.save(photo);

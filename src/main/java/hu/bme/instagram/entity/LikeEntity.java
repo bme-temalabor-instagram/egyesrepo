@@ -11,7 +11,7 @@ public class LikeEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int likeId;
     private int likeCount;
-    @ManyToMany(mappedBy = "likeEntities")
+    @ManyToMany
     private List<User> userLikes;
 
     public LikeEntity() {
@@ -36,7 +36,9 @@ public class LikeEntity {
     }
 
     public void addOne(User user) {
+        System.out.println("addOne");
         userLikes.add(user);
+        System.out.println(userLikes.size());
         likeCount += 1;
     }
 
