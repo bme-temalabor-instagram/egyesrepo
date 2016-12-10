@@ -102,13 +102,13 @@
                                class="notlike"
                                onclick="toggle(this);"
                                th:attr="id=${image.photo.public_id}"
-                               onload="actualizeData(this)"/>
+                               onload="loadLikes(this)"/>
                     </p>
 
 
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
                             data-target="#myModal">
-                        <h5 th:text="${image.photo.like.likeCount + ' people liked this'}"></h5>
+                        <h5 th:text="${image.photo.likeEntity.likeCount + ' people liked this'}"></h5>
                     </button>
                     <!-- Button trigger modal -->
 
@@ -125,7 +125,8 @@
                                     <h4 class="modal-title" id="myModalLabel">People who liked it</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <h5 th:text="${image.photo.like.likes}"></h5>
+                                    <!-- <h5 th:text="${image.photo.likeEntity.likes}"></h5> -->
+                                    <h5>még nincs implementálva</h5>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

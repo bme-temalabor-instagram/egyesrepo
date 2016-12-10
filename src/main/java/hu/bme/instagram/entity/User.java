@@ -3,6 +3,7 @@ package hu.bme.instagram.entity;
 import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Scope("session")
@@ -15,6 +16,8 @@ public class User {
     private String googlePictureUrl;
     @OneToMany(mappedBy = "user")
     private Set<Photo> photos;
+    @ManyToMany
+    private List<LikeEntity> likeEntities;
 
     public String getGooglePictureUrl() {
         return googlePictureUrl;
@@ -46,6 +49,14 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public List<LikeEntity> getLikeEntities() {
+        return likeEntities;
+    }
+
+    public void setLikeEntities(List<LikeEntity> likeEntities) {
+        this.likeEntities = likeEntities;
     }
 
     @Override

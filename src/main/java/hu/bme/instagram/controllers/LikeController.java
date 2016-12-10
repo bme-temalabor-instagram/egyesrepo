@@ -1,7 +1,8 @@
 package hu.bme.instagram.controllers;
 
+import hu.bme.instagram.dal.LikeRepository;
 import hu.bme.instagram.dal.PhotoRepository;
-import hu.bme.instagram.entity.Like;
+import hu.bme.instagram.entity.LikeEntity;
 import hu.bme.instagram.entity.Photo;
 import hu.bme.instagram.entity.User;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,9 +22,13 @@ public class LikeController {
     @Autowired
     private PhotoRepository photoRepository;
 
+    @Autowired
+    private LikeRepository likeRepository;
+
     @PostMapping(value = "/load_likes", produces = "application/json")
     public @ResponseBody String loadLikes(@RequestParam(value = "photo_id", required = true) String photoId,
                      HttpServletRequest request) {
+        System.out.println("Load likes POST received");
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null)
@@ -34,8 +38,8 @@ public class LikeController {
         if (photo == null)
             return "";
 
-        Like like = photo.getLike();
-        List<User> likers = like.getLikes();
+        LikeEntity likeEntity = photo.getLikeEntity();
+        List<User> likers = likeEntity.getUserLikes();
         String usernames = "";
         for (int i = 0; i < likers.size(); i++) {
             usernames += likers.get(i).getName();
@@ -54,16 +58,19 @@ public class LikeController {
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null)
-            return "";
+            return "user is null";
 
         Photo photo = photoRepository.findOne(photoId);
         if (photo == null)
-            return "";
+            return "photo is null";
 
-        photo.getLike().addOne(user);
+        LikeEntity like = photo.getLikeEntity();
+        like.addOne(user);
+        like = likeRepository.save(like);
+        photo.setLikeEntity(like);
         photo = photoRepository.save(photo);
 
-        return "main";
+        return "photo liked";
     }
 
     @PostMapping(value = "/unlike")
@@ -73,15 +80,24 @@ public class LikeController {
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null)
-            return "";
+            return "user is null";
 
         Photo photo = photoRepository.findOne(photoId);
         if (photo == null)
-            return "";
+            return "photo is null";
 
-        photo.getLike().remove(user);
+        LikeEntity like = photo.getLikeEntity();
+
+        boolean successfullyRemoved = like.remove(user);
+        if (!successfullyRemoved) {
+            System.out.println("User nem volt a like listában");
+        }
+        if (photo.getLikeEntity().getLikeCount() < 0) {
+            System.out.println("- like count?? lol");
+        }
+        like = likeRepository.save(like);
         photo = photoRepository.save(photo);
 
-        return "main";
+        return "photo unliked";
     }
 }

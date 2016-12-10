@@ -2,8 +2,9 @@ package hu.bme.instagram.controllers;
 
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
+import hu.bme.instagram.dal.LikeRepository;
 import hu.bme.instagram.dal.PhotoRepository;
-import hu.bme.instagram.entity.Like;
+import hu.bme.instagram.entity.LikeEntity;
 import hu.bme.instagram.entity.Photo;
 import hu.bme.instagram.entity.User;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -33,6 +34,9 @@ public class UploadController {
 
     @Autowired
     private PhotoRepository photoRepository;
+
+    @Autowired
+    private LikeRepository likeRepository;
 
     @GetMapping("/upload")
     public String uploadingForm(Model model,
@@ -118,7 +122,9 @@ public class UploadController {
         photo.setUser(user);
         photo.setCreated_at(new Date());
         photo.setTitle(uploadedPhotoName);
-        photo.setLike(new Like());
+        LikeEntity likeEntity = new LikeEntity();
+        likeRepository.save(likeEntity);
+        photo.setLikeEntity(likeEntity);
         return photo;
     }
 }

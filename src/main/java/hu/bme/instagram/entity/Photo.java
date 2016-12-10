@@ -1,6 +1,5 @@
 package hu.bme.instagram.entity;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,20 +26,15 @@ public class Photo {
     @NotNull
     private User user;
 
-    private Like like;
+    @OneToOne
+    private LikeEntity likeEntity;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "likeCount", column = @Column(name = "likecount")),
-            @AttributeOverride(name = "likes", column = @Column(name = "likes"))
-    })
-
-    public Like getLike() {
-        return like;
+    public LikeEntity getLikeEntity() {
+        return likeEntity;
     }
 
-    public void setLike(Like like) {
-        this.like = like;
+    public void setLikeEntity(LikeEntity likeEntity) {
+        this.likeEntity = likeEntity;
     }
 
     public String getTitle() {

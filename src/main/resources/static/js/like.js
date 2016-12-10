@@ -1,29 +1,46 @@
 var webappAddress = "http://localhost:8080/";
 
 function toggle(el) {
-    if (el.className != "like") {
+    if (el.className == "notlike") {
         el.src = 'images/like.png';
         el.className = "like";
+        like(el.id);
     }
     else if (el.className == "like") {
         el.src = 'images/notlike.png';
         el.className = "notlike";
+        unlike(el.id);
     }
 
     return false;
 }
 
-function actualizeData(el) {
-    var photo_id = el.id;
-    // if (photo_id.charAt(0) == '-') {
-    //     console.log("0 likes");
-    //     return;
-    // }
+function like(photo_id) {
+    var params = "&photo_id=" + photo_id;
 
-    loadLikes(photo_id);
+    sendPostRequest(webappAddress + "like",
+        params,
+        function (xhr) {
+            var response = xhr.responseText;
+            console.log(response);
+        }
+    );
 }
 
-function loadLikes(photo_id) {
+function unlike(photo_id) {
+    var params = "&photo_id=" + photo_id;
+
+    sendPostRequest(webappAddress + "unlike",
+        params,
+        function (xhr) {
+            var response = xhr.responseText;
+            console.log(response);
+        }
+    );
+}
+
+function loadLikes(el) {
+    var photo_id = el.id;
     var params = "&photo_id=" + photo_id;
 
     sendPostRequest(webappAddress + "load_likes",
