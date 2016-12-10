@@ -107,8 +107,9 @@
 
 
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-                            data-target="#myModal">
-                        <h5 th:text="${image.photo.likeEntity.likeCount + ' people liked this'}"></h5>
+                            data-target="#myModal" >
+                        <h5><span th:attr="id='txt'+${image.photo.public_id}"
+                            th:text="${image.photo.likeEntity.likeCount}"></span> people liked this</h5>
                     </button>
                     <!-- Button trigger modal -->
 

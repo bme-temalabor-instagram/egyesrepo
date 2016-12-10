@@ -2,13 +2,11 @@ var webappAddress = "http://localhost:8080/";
 
 function toggle(el) {
     if (el.className == "notlike") {
-        el.src = 'images/like.png';
-        el.className = "like";
+        fillHeart(el);
         like(el.id);
     }
     else if (el.className == "like") {
-        el.src = 'images/notlike.png';
-        el.className = "notlike";
+        emptyHeart(el);
         unlike(el.id);
     }
 
@@ -22,7 +20,13 @@ function like(photo_id) {
         params,
         function (xhr) {
             var response = xhr.responseText;
-            console.log(response);
+            if (response === "ok") {
+                var likesSpan = document.getElementById("txt"+photo_id);
+                console.log(likesSpan.innerHTML);
+                var numOfLikes = parseInt(likesSpan.innerHTML, 10);
+                numOfLikes++;
+                likesSpan.innerHTML = numOfLikes;
+            }
         }
     );
 }
@@ -34,7 +38,13 @@ function unlike(photo_id) {
         params,
         function (xhr) {
             var response = xhr.responseText;
-            console.log(response);
+            if (response === "ok") {
+                var likesSpan = document.getElementById("txt"+photo_id);
+                console.log(likesSpan.innerHTML);
+                var numOfLikes = parseInt(likesSpan.innerHTML, 10);
+                numOfLikes--;
+                likesSpan.innerHTML = numOfLikes;
+            }
         }
     );
 }
@@ -50,6 +60,18 @@ function loadLikes(el) {
             console.log(response);
         }
     );
+
+    sendPostRequest(webappAddress + "is_like",
+        params,
+        function (xhr) {
+            var response = xhr.responseText;
+            if (response === "true") {
+                fillHeart(el);
+            } else {
+                emptyHeart(el);
+            }
+        }
+    );
 }
 
 function sendPostRequest(address, params, responseHandler) {
@@ -63,4 +85,14 @@ function sendPostRequest(address, params, responseHandler) {
             responseHandler(xhr);
         }
     };
+}
+
+function fillHeart(el) {
+    el.src = 'images/like.png';
+    el.className = "like";
+}
+
+function emptyHeart(el) {
+    el.src = 'images/notlike.png';
+    el.className = "notlike";
 }

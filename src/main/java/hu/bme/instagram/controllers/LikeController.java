@@ -28,7 +28,6 @@ public class LikeController {
     @PostMapping(value = "/load_likes", produces = "application/json")
     public @ResponseBody String loadLikes(@RequestParam(value = "photo_id", required = true) String photoId,
                      HttpServletRequest request) {
-        System.out.println("Load likes POST received");
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null)
@@ -47,9 +46,7 @@ public class LikeController {
                 usernames += ", ";
             }
         }
-        if (likers.size() == 0) {
-            System.out.println("no likers");
-        }
+
         return usernames;
     }
 
@@ -72,7 +69,7 @@ public class LikeController {
         photo.setLikeEntity(like);
         photo = photoRepository.save(photo);
 
-        return "photo liked";
+        return "ok";
     }
 
     @PostMapping(value = "/unlike")
@@ -100,6 +97,27 @@ public class LikeController {
         like = likeRepository.save(like);
         photo = photoRepository.save(photo);
 
-        return "photo unliked";
+        return "ok";
+    }
+
+    @PostMapping(value = "/is_like")
+    public @ResponseBody String isLike(@RequestParam(value = "photo_id", required = true) String photoId,
+                                       HttpServletRequest request) {
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null)
+            return "user is null";
+
+        Photo photo = photoRepository.findOne(photoId);
+        if (photo == null)
+            return "photo is null";
+
+        LikeEntity like = photo.getLikeEntity();
+
+        if (like.getUserLikes().contains(user)) {
+            return "true";
+        }
+
+        return "false";
     }
 }
