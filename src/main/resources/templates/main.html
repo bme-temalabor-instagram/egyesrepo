@@ -66,8 +66,7 @@
                                src="images\notlike.png"
                                class="notlike"
                                onclick="toggle(this);"
-                               th:attr="id=${image.photo.public_id}"
-                               onload="loadLikes"/>
+                               th:attr="id=${image.photo.public_id}"/>
                     </p>
 
 
@@ -92,9 +91,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- <h5 th:text="${image.photo.likeEntity.likes}"></h5> -->
-                                     <div th:each="image : ${image.photo.likeEntity.userLikes}">
-                                    <div th:text ="${image.name}"></div>
-                                    </div>
+                                    <h5>Ez a feature nincs még implementálva</h5>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
