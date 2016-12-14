@@ -123,7 +123,8 @@ public class UploadController {
         photo.setCreated_at(new Date());
         photo.setTitle(uploadedPhotoName);
         LikeEntity likeEntity = new LikeEntity();
-        likeRepository.save(likeEntity);
+        likeEntity = likeRepository.save(likeEntity);
+        System.out.println("like entity: " + likeEntity.getLikeId() + " " + likeEntity.getLikeCount());
         photo.setLikeEntity(likeEntity);
         return photo;
     }
