@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="js/like.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"/>
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="/css/style.css"/>
+
+    <title>TemalabInsta</title>
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-default" th:fragment="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/main}">
+                <img alt="Brand" class="" src="images\icon.png"/>
+            </a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a th:href="@{/myimages}">
+                    <h3 th:text="${userName}"></h3>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/myimages}">
+                    <img th:attr="src=${userImage}" width="50"/>
+                </a>
+            </li>
+        </ul>
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+</body>
+</html>

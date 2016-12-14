@@ -17,29 +17,7 @@
 <body>
 <div class="container">
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/main}">
-                    <img alt="Brand" class="" src="images\icon.png"/>
-                </a>
-            </div>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a th:href="@{/myimages}">
-                        <h3 th:text="${userName}"></h3>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/myimages}">
-                        <img th:attr="src=${userImage}" width="50" />
-                    </a>
-                </li>
-            </ul>
-        </div><!-- /.container-fluid -->
-    </nav>
-
+    <nav th:include="fragments :: navbar"></nav>
 
     <div class="row">
         <form action="#" th:action="@{/userimages}" method="get">
@@ -71,7 +49,7 @@
                 <label class="btn btn-default btn-file input-group-btn">
                     <i class="material-icons">folder_open</i>
                     <input id="fileupload" class="" name="image" type="file" accept="image/*" style="display: none"
-                           required="true" />
+                           required="true"/>
                 </label>
             </div>
             <div class="col-md-5">
@@ -107,9 +85,9 @@
 
 
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-                            data-target="#myModal" >
+                            data-target="#myModal">
                         <h5><span th:attr="id='txt'+${image.photo.public_id}"
-                            th:text="${image.photo.likeEntity.likeCount}"></span> people liked this</h5>
+                                  th:text="${image.photo.likeEntity.likeCount}"></span> people liked this</h5>
                     </button>
                     <!-- Button trigger modal -->
 
@@ -142,7 +120,7 @@
     </div>
 </div>
 
-
+<div></div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
