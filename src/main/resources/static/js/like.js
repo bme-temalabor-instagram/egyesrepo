@@ -12,7 +12,7 @@ function toggle(el) {
 }
 
 function like(el) {
-    var params = getParamsFromElementId(el);
+    var params = "&photo_id=" + el.id;
 
     sendPostRequest(webappAddress + "like",
         params,
@@ -30,7 +30,7 @@ function like(el) {
 }
 
 function unlike(el) {
-    var params = getParamsFromElementId(el);
+    var params = "&photo_id=" + el.id;
 
     sendPostRequest(webappAddress + "unlike",
         params,
@@ -48,19 +48,24 @@ function unlike(el) {
 }
 
 function loadLikes(el) {
-    var params = getParamsFromElementId(el);
+    var params = "&photo_id=" + el.id;
+    var photo_id = el.id;
 
     sendPostRequest(webappAddress + "load_likes",
         params,
         function (xhr) {
             var response = xhr.responseText;
-            console.log(response);
+            var listOfLikers = document.getElementById("listOfLikers");
+            while (listOfLikers.firstChild) {
+                listOfLikers.removeChild(listOfLikers.firstChild);
+            }
+            listOfLikers.innerHTML = response;
         }
     );
 }
 
 function setLike(el) {
-    var params = getParamsFromElementId(el);
+    var params = "&photo_id=" + el.id;
 
     sendPostRequest(webappAddress + "is_like",
         params,
@@ -101,9 +106,4 @@ function emptyHeart(el) {
         el.src = 'images/notlike.png';
         el.className = "notlike";
     }
-}
-
-function getParamsFromElementId(el) {
-    var photo_id = el.id;
-    return params = "&photo_id=" + photo_id;
 }

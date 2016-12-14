@@ -72,7 +72,7 @@
 
 
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-                            data-target="#myModal">
+                            th:id="${image.photo.public_id}" data-target="#myModal" onclick="loadLikes(this)">
                         <h5><span th:attr="id='txt'+${image.photo.public_id}"
                                   th:text="${image.photo.likeEntity.likeCount}"></span> people liked this</h5>
                     </button>
@@ -90,9 +90,7 @@
                                     </button>
                                     <h4 class="modal-title" id="myModalLabel">People who liked it</h4>
                                 </div>
-                                <div class="modal-body">
-                                    <!-- <h5 th:text="${image.photo.likeEntity.likes}"></h5> -->
-                                    <h5>Ez a feature nincs még implementálva</h5>
+                                <div class="modal-body" id="listOfLikers">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
