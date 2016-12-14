@@ -65,8 +65,9 @@
                         <input type="image"
                                src="images\notlike.png"
                                class="notlike"
-                               onclick="toggle(this);"
-                               th:attr="id=${image.photo.public_id}"/>
+                               onclick="toggle(this)"
+                               th:attr="id=${image.photo.public_id}"
+                               onload="setLike(this)"/>
                     </p>
 
 

@@ -2,56 +2,53 @@ var webappAddress = "http://localhost:8080/";
 
 function toggle(el) {
     if (el.className == "notlike") {
-        fillHeart(el);
-        like(el.id);
+        like(el);
     }
     else if (el.className == "like") {
-        emptyHeart(el);
-        unlike(el.id);
+        unlike(el);
     }
 
     return false;
 }
 
-function like(photo_id) {
-    var params = "&photo_id=" + photo_id;
+function like(el) {
+    var params = getParamsFromElementId(el);
 
     sendPostRequest(webappAddress + "like",
         params,
         function (xhr) {
             var response = xhr.responseText;
             if (response === "ok") {
-                var likesSpan = document.getElementById("txt" + photo_id);
-                console.log(likesSpan.innerHTML);
+                fillHeart(el);
+                var likesSpan = document.getElementById("txt" + el.id);
                 var numOfLikes = parseInt(likesSpan.innerHTML, 10);
                 numOfLikes++;
-                likesSpan.innerHTML = numOfLikes;
+                likesSpan.innerHTML = numOfLikes.toString();
             }
         }
     );
 }
 
-function unlike(photo_id) {
-    var params = "&photo_id=" + photo_id;
+function unlike(el) {
+    var params = getParamsFromElementId(el);
 
     sendPostRequest(webappAddress + "unlike",
         params,
         function (xhr) {
             var response = xhr.responseText;
             if (response === "ok") {
-                var likesSpan = document.getElementById("txt" + photo_id);
-                console.log(likesSpan.innerHTML);
+                emptyHeart(el);
+                var likesSpan = document.getElementById("txt" + el.id);
                 var numOfLikes = parseInt(likesSpan.innerHTML, 10);
                 numOfLikes--;
-                likesSpan.innerHTML = numOfLikes;
+                likesSpan.innerHTML = numOfLikes.toString();
             }
         }
     );
 }
 
 function loadLikes(el) {
-    var photo_id = el.id;
-    var params = "&photo_id=" + photo_id;
+    var params = getParamsFromElementId(el);
 
     sendPostRequest(webappAddress + "load_likes",
         params,
@@ -60,6 +57,10 @@ function loadLikes(el) {
             console.log(response);
         }
     );
+}
+
+function setLike(el) {
+    var params = getParamsFromElementId(el);
 
     sendPostRequest(webappAddress + "is_like",
         params,
@@ -89,11 +90,20 @@ function sendPostRequest(address, params, responseHandler) {
 
 
 function fillHeart(el) {
-    el.src = 'images/like.png';
-    el.className = "like";
+    if (el.className !== "like") {
+        el.src = 'images/like.png';
+        el.className = "like";
+    }
 }
 
 function emptyHeart(el) {
-    el.src = 'images/notlike.png';
-    el.className = "notlike";
+    if (el.className !== "notlike") {
+        el.src = 'images/notlike.png';
+        el.className = "notlike";
+    }
+}
+
+function getParamsFromElementId(el) {
+    var photo_id = el.id;
+    return params = "&photo_id=" + photo_id;
 }

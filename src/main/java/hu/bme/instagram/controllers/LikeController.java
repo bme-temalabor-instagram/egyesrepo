@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -60,10 +61,15 @@ public class LikeController {
             return "user is null";
 
         Photo photo = photoRepository.findOne(photoId);
-        if (photo == null)
+        if (photo == null) {
             return "photo is null";
+        }
 
         LikeEntity like = photo.getLikeEntity();
+        if (like.getUserLikes().contains(user)) {
+            System.out.println("User already liked the photo " + photoId);
+            return "already liked";
+        }
         like.addOne(user);
         like = likeRepository.save(like);
         photo.setLikeEntity(like);
@@ -90,12 +96,16 @@ public class LikeController {
         boolean successfullyRemoved = like.remove(user);
         if (!successfullyRemoved) {
             System.out.println("User nem volt a like listában");
+            return "no user found in list";
         }
-        if (photo.getLikeEntity().getLikeCount() < 0) {
+        if (like.getLikeCount() < 0) {
             System.out.println("- like count?? lol");
+            like.setUserLikes(new ArrayList<>());
+            like.setLikeCount(0);
+            like = likeRepository.save(like);
+            return "like count negative";
         }
         like = likeRepository.save(like);
-        photo = photoRepository.save(photo);
 
         return "ok";
     }
