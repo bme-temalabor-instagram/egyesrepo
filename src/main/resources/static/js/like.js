@@ -21,7 +21,7 @@ function like(photo_id) {
         function (xhr) {
             var response = xhr.responseText;
             if (response === "ok") {
-                var likesSpan = document.getElementById("txt"+photo_id);
+                var likesSpan = document.getElementById("txt" + photo_id);
                 console.log(likesSpan.innerHTML);
                 var numOfLikes = parseInt(likesSpan.innerHTML, 10);
                 numOfLikes++;
@@ -39,7 +39,7 @@ function unlike(photo_id) {
         function (xhr) {
             var response = xhr.responseText;
             if (response === "ok") {
-                var likesSpan = document.getElementById("txt"+photo_id);
+                var likesSpan = document.getElementById("txt" + photo_id);
                 console.log(likesSpan.innerHTML);
                 var numOfLikes = parseInt(likesSpan.innerHTML, 10);
                 numOfLikes--;
@@ -86,6 +86,7 @@ function sendPostRequest(address, params, responseHandler) {
         }
     };
 }
+
 
 function fillHeart(el) {
     el.src = 'images/like.png';
