@@ -19,11 +19,12 @@ function like(el) {
         function (xhr) {
             var response = xhr.responseText;
             if (response === "ok") {
-                fillHeart(el);
-                var likesSpan = document.getElementById("txt" + el.id);
-                var numOfLikes = parseInt(likesSpan.innerHTML, 10);
-                numOfLikes++;
-                likesSpan.innerHTML = numOfLikes.toString();
+                if (fillHeart(el)) {
+                    var likesSpan = document.getElementById("txt" + el.id);
+                    var numOfLikes = parseInt(likesSpan.innerHTML, 10);
+                    numOfLikes++;
+                    likesSpan.innerHTML = numOfLikes.toString();
+                }
             }
         }
     );
@@ -37,11 +38,12 @@ function unlike(el) {
         function (xhr) {
             var response = xhr.responseText;
             if (response === "ok") {
-                emptyHeart(el);
-                var likesSpan = document.getElementById("txt" + el.id);
-                var numOfLikes = parseInt(likesSpan.innerHTML, 10);
-                numOfLikes--;
-                likesSpan.innerHTML = numOfLikes.toString();
+                if (emptyHeart(el)) {
+                    var likesSpan = document.getElementById("txt" + el.id);
+                    var numOfLikes = parseInt(likesSpan.innerHTML, 10);
+                    numOfLikes--;
+                    likesSpan.innerHTML = numOfLikes.toString();
+                }
             }
         }
     );
@@ -98,12 +100,16 @@ function fillHeart(el) {
     if (el.className !== "like") {
         el.src = 'images/like.png';
         el.className = "like";
+        return true;
     }
+    return false;
 }
 
 function emptyHeart(el) {
     if (el.className !== "notlike") {
         el.src = 'images/notlike.png';
         el.className = "notlike";
+        return true;
     }
+    return false;
 }
