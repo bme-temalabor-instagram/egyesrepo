@@ -10,8 +10,9 @@ public class LikeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int likeId;
-    private int likeCount;
+    private int likeCount=0;
     @ManyToMany
+    @JoinColumn(name ="userLikes")
     private List<User> userLikes;
 
     public LikeEntity() {
