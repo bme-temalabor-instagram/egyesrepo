@@ -6,7 +6,7 @@
 
     <nav th:include="fragments :: navbar"></nav>
 
-    <div class="row">
+    <div id="search-row" class="row">
         <form action="#" th:action="@{/userimages}" method="get">
             <div class="col-lg-5">
                 <div class="input-group">
@@ -18,7 +18,7 @@
             </div><!-- /.col-lg-5 -->
         </form>
         <form action="#" th:action="@{/tagresultimages}" method="get">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="input-group">
                     <input type="text" class="form-control" name="imagetag" placeholder="Search for titles..."/>
                     <span class="input-group-btn">
@@ -30,24 +30,28 @@
     </div><!-- /.row -->
 
     <!-- upload-row -->
-    <div class="row no-gutter">
+    <div id="upload-row" class="row">
         <form action="#" th:action="@{/upload}" method="post" enctype="multipart/form-data">
-            <div class="col-md-2">
-                <label class="btn btn-default btn-file input-group-btn">
+            <div class="col-lg-3">
+                <label id="fileupload-label" class="btn btn-default" for="fileupload">
                     <i class="material-icons">folder_open</i>
-                    <input id="fileupload" class="" name="image" type="file" accept="image/*" style="display: none"
-                           required="true"/>
+                    <input id="fileupload"
+                           class="" name="image" type="file" accept="image/*" style="display:none"
+                           required="true"
+                           onchange="$('#title').val($(this).val().split('\\').pop().split('.').shift());"
+                    />
                 </label>
             </div>
-            <div class="col-md-5">
-                <input name="title" class="form-control" placeholder="Name..." type="text" required="true"/>
+            <div class="col-lg-8">
+                <input id="title" name="title" class="form-control"
+                       placeholder="Name..." type="text"
+                       required="true"/>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-1 text-right">
                 <button class="btn btn-default" type="submit" value="Submit">
                     <i class="material-icons">cloud_upload</i>
                 </button>
             </div>
-            <div class="col-md-3" id="uploadFileName"></div>
         </form>
     </div>
     <!-- /upload-row -->

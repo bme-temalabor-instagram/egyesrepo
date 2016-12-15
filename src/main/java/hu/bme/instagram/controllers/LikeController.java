@@ -27,7 +27,9 @@ public class LikeController {
     private LikeRepository likeRepository;
 
     @PostMapping(value = "/load_likes", produces = "application/json")
-    public @ResponseBody String loadLikes(@RequestParam(value = "photo_id", required = true) String photoId,
+    public
+    @ResponseBody
+    String loadLikes(@RequestParam(value = "photo_id", required = true) String photoId,
                      HttpServletRequest request) {
 
         User user = (User) request.getSession().getAttribute("user");
@@ -52,8 +54,10 @@ public class LikeController {
     }
 
     @PostMapping(value = "/like")
-    public @ResponseBody String like(@RequestParam(value = "photo_id", required = true) String photoId,
-                       HttpServletRequest request) {
+    public
+    @ResponseBody
+    String like(@RequestParam(value = "photo_id", required = true) String photoId,
+                HttpServletRequest request) {
         System.out.println("Like POST request received.");
 
         User user = (User) request.getSession().getAttribute("user");
@@ -79,8 +83,10 @@ public class LikeController {
     }
 
     @PostMapping(value = "/unlike")
-    public @ResponseBody String unlike(@RequestParam(value = "photo_id", required = true) String photoId,
-                         HttpServletRequest request) {
+    public
+    @ResponseBody
+    String unlike(@RequestParam(value = "photo_id", required = true) String photoId,
+                  HttpServletRequest request) {
         System.out.println("Unlike POST request received.");
 
         User user = (User) request.getSession().getAttribute("user");
@@ -111,8 +117,10 @@ public class LikeController {
     }
 
     @PostMapping(value = "/is_like")
-    public @ResponseBody String isLike(@RequestParam(value = "photo_id", required = true) String photoId,
-                                       HttpServletRequest request) {
+    public
+    @ResponseBody
+    String isLike(@RequestParam(value = "photo_id", required = true) String photoId,
+                  HttpServletRequest request) {
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null)
