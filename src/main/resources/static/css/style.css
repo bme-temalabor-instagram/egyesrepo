@@ -5,6 +5,10 @@ body {
     background-color: #fafafa;
 }
 
+a{
+    color: black;
+}
+
 #signin-wrapper {
     display: inline-block;
 }
@@ -48,6 +52,10 @@ body {
 
 .navbar-brand img {
     height: 70px;
+}
+
+.navbar-right li{
+    height: 86px;!important;
 }
 
 .like, .notlike {
